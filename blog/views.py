@@ -33,7 +33,9 @@ class PostUpdate(ObjectUpdateMixin, View):
 
 
 class PostDelete(ObjectDeleteMixin, View):
-    pass
+    model = Post
+    template = 'blog/post_delete.html'
+    redirect_url = 'blog:post_list_url'
 
 
 class TagDetail(ObjectDetailMixin, View):
