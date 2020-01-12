@@ -13,7 +13,8 @@
         </div>
     </div>
 
-    <a href="{{ admin_object.get_update_url }}" class="btn btn-dark edit">Update</a>
+    <a href="{{ admin_object.get_update_url }}" class="btn btn-dark edit"
+       style="{% if detail %}display: block;{% endif %}">Update</a>
     <a href="{{ admin_object.get_delete_url }}" class="btn btn-danger delete"
        style="{% if detail %}display: block;{% endif %}">Delete</a>
 
