@@ -1,0 +1,27 @@
+.admin-panel {
+    border: 1px solid #343a40;
+    border-radius: 2px;
+    position: fixed;
+    right: 50px;
+    bottom: 30px;
+    opacity: 0.3;
+    padding: 15px;
+}
+
+.admin-panel:hover {
+    opacity: 1;
+}
+
+.admin-panel a {
+    display: block;
+    margin: 5px 0;
+}
+
+.form-control:focus {
+    box-shadow:  0 0 0 0.2rem rgba(10,10,10, .25);
+    border-color: #343a40;
+}
+
+a.edit, a.delete {
+    display: none;
+}
