@@ -4,18 +4,23 @@ from django.db.models import Q
 from django.shortcuts import render
 from django.views.generic import View
 
-from blog.models import Post, Tag
+from blog.models import Post, Tag, Category
 from .forms import TagForm, PostForm
 from .utils import ObjectDetailMixin, ObjectCreateMixin, ObjectUpdateMixin, ObjectDeleteMixin
 
 
 def post_list(request):
     search_query = request.GET.get('search', '')
+    category_list = Category.objects.all()
 
     if search_query:
-        posts = Post.objects.filter(Q(title__icontains=search_query) | Q(body__icontains=search_query))
+        posts = Post.objects.filter(
+            Q(title__icontains=search_query) |
+            Q(body__icontains=search_query),
+            published=True
+        )
     else:
-        posts = Post.objects.all()
+        posts = Post.objects.filter(published=True)
 
     paginator = Paginator(posts, 3)
     page_number = request.GET.get('page', 1)
@@ -36,6 +41,7 @@ def post_list(request):
         'is_paginated': is_paginated,
         'next_url': next_url,
         'previous_url': previous_url,
+        'categories': category_list
     }
     return render(request, 'blog/index.html', context)
 

@@ -51,7 +51,8 @@ class Post(models.Model):
         Category,
         verbose_name='Категория',
         on_delete=models.SET_NULL,
-        null=True
+        null=True,
+        blank=True
     )
     tags = models.ManyToManyField('Tag', blank=True, related_name='posts', verbose_name='Тег')
     image = models.ImageField('Изображение', upload_to='post/', null=True, blank=True)
