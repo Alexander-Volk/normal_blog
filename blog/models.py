@@ -16,6 +16,7 @@ def gen_slug(s):
 class Category(MPTTModel):
     name = models.CharField('Название', max_length=50)
     slug = models.SlugField('url', max_length=50, unique=True)
+    description = models.TextField('Описание', max_length=1000, default='', blank=True)
     parent = TreeForeignKey(
         'self',
         verbose_name='Родительская категория',
@@ -24,24 +25,17 @@ class Category(MPTTModel):
         blank=True,
         related_name='children'
     )
+    published = models.BooleanField('Отображать?', default=True)
 
     class Meta:
-        verbose_name = 'Категория нововстей'
-        verbose_name_plural = 'Категории новостей'
+        verbose_name = 'Категория постов'
+        verbose_name_plural = 'Категории постов'
+
+    def __str__(self):
+        return self.name
 
 
 class Post(models.Model):
-    title = models.CharField('Заголовок', max_length=50, db_index=True)
-    slug = models.SlugField('url', max_length=50, unique=True, blank=True)
-    body = models.TextField('Тело', blank=True, db_index=True)
-    pub_date = models.DateTimeField('Дата публикации', auto_now_add=True)
-    tags = models.ManyToManyField('Tag', blank=True, related_name='posts')
-    category = models.ForeignKey(
-        Category,
-        verbose_name='Категория',
-        on_delete=models.CASCADE,
-        null=True
-    )
     author = models.ForeignKey(
         User,
         verbose_name='Автор',
@@ -49,6 +43,20 @@ class Post(models.Model):
         null=True,
         blank=True
     )
+    title = models.CharField('Заголовок', max_length=50, db_index=True)
+    slug = models.SlugField('url', max_length=50, unique=True, blank=True)
+    body = models.TextField('Тело', blank=True, db_index=True)
+    pub_date = models.DateTimeField('Дата публикации', auto_now_add=True)
+    category = models.ForeignKey(
+        Category,
+        verbose_name='Категория',
+        on_delete=models.SET_NULL,
+        null=True
+    )
+    tags = models.ManyToManyField('Tag', blank=True, related_name='posts', verbose_name='Тег')
+    image = models.ImageField('Изображение', upload_to='post/', null=True, blank=True)
+    published = models.BooleanField('Опубликовать?', default=True)
+    viewed = models.PositiveIntegerField('Просмотернно', default=0)
 
     def get_absolute_url(self):
         return reverse('blog:post_detail_url', kwargs={'slug': self.slug})
@@ -76,6 +84,7 @@ class Post(models.Model):
 class Tag(models.Model):
     title = models.CharField('Тег', max_length=50)
     slug = models.SlugField('url', max_length=50, unique=True)
+    published = models.BooleanField('Отображать?', default=True)
 
     def get_absolute_url(self):
         return reverse('blog:tag_detail_url', kwargs={'slug': self.slug})
