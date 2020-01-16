@@ -13,4 +13,12 @@
     <p>
         {{ post.body }}
     </p>
+    <b>Комментарии:</b><br>
+    {% for comment in post.comment_set.all %}
+        Пользователь - {{ comment.author }}<br>
+        {{ comment.text }}<br>
+        Добавлен - {{ comment.create_date }}<br><br>
+    {% endfor %}
+
+
 {% endblock %}

@@ -4,14 +4,13 @@ from django.db.models import Q
 from django.shortcuts import render
 from django.views.generic import View
 
-from blog.models import Post, Tag, Category
+from blog.models import Post, Tag, Comment
 from .forms import TagForm, PostForm
 from .utils import ObjectDetailMixin, ObjectCreateMixin, ObjectUpdateMixin, ObjectDeleteMixin
 
 
 def post_list(request):
     search_query = request.GET.get('search', '')
-    category_list = Category.objects.all()
 
     if search_query:
         posts = Post.objects.filter(
@@ -40,14 +39,13 @@ def post_list(request):
         'page_object': page,
         'is_paginated': is_paginated,
         'next_url': next_url,
-        'previous_url': previous_url,
-        'categories': category_list
+        'previous_url': previous_url
     }
     return render(request, 'blog/index.html', context)
 
 
 def tag_list(request):
-    tags = Tag.objects.all()
+    tags = Tag.objects.filter(published=True)
     return render(request, 'blog/tag_list.html', context={'tags': tags})
 
 

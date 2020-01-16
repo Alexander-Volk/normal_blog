@@ -4,35 +4,11 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.shortcuts import reverse
 from django.utils.text import slugify
-from mptt.fields import TreeForeignKey
-from mptt.models import MPTTModel
 
 
 def gen_slug(s):
     new_slug = slugify(s, allow_unicode=True)
     return new_slug + '-' + str(int(time()))
-
-
-class Category(MPTTModel):
-    name = models.CharField('Название', max_length=50)
-    slug = models.SlugField('url', max_length=50, unique=True)
-    description = models.TextField('Описание', max_length=1000, default='', blank=True)
-    parent = TreeForeignKey(
-        'self',
-        verbose_name='Родительская категория',
-        on_delete=models.CASCADE,
-        null=True,
-        blank=True,
-        related_name='children'
-    )
-    published = models.BooleanField('Отображать?', default=True)
-
-    class Meta:
-        verbose_name = 'Категория постов'
-        verbose_name_plural = 'Категории постов'
-
-    def __str__(self):
-        return self.name
 
 
 class Post(models.Model):
@@ -47,13 +23,6 @@ class Post(models.Model):
     slug = models.SlugField('url', max_length=50, unique=True, blank=True)
     body = models.TextField('Тело', blank=True, db_index=True)
     pub_date = models.DateTimeField('Дата публикации', auto_now_add=True)
-    category = models.ForeignKey(
-        Category,
-        verbose_name='Категория',
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True
-    )
     tags = models.ManyToManyField('Tag', blank=True, related_name='posts', verbose_name='Тег')
     image = models.ImageField('Изображение', upload_to='post/', null=True, blank=True)
     published = models.BooleanField('Опубликовать?', default=True)
@@ -116,7 +85,9 @@ class Comment(models.Model):
         on_delete=models.CASCADE
     )
 
+    def __str__(self):
+        return self.text
+
     class Meta:
-        # ordering = ['-created_date']
         verbose_name = 'Комментарий'
         verbose_name_plural = 'Комментарии'
