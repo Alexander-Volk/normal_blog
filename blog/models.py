@@ -42,6 +42,9 @@ class Post(models.Model):
             self.slug = gen_slug(self.title)
         super().save(*args, **kwargs)
 
+    def get_comments_count(self):
+        return self.comments.count()
+
     def __str__(self):
         return self.title
 
@@ -75,10 +78,15 @@ class Tag(models.Model):
 
 
 class Comment(models.Model):
-    text = models.TextField('Комментарий')
+    body = models.TextField('Комментарий')
     create_date = models.DateTimeField('Дата создания', auto_now=True)
     moderation = models.BooleanField(default=True)
-    post = models.ForeignKey(Post, verbose_name='Пост', on_delete=models.CASCADE)
+    post = models.ForeignKey(
+        Post,
+        verbose_name='Пост',
+        on_delete=models.CASCADE,
+        related_name='comments'
+    )
     author = models.ForeignKey(
         User,
         verbose_name='Автор',
@@ -86,7 +94,7 @@ class Comment(models.Model):
     )
 
     def __str__(self):
-        return self.text
+        return self.body
 
     class Meta:
         verbose_name = 'Комментарий'

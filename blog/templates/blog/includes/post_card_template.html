@@ -1,17 +1,21 @@
-<div class="card mb-4">
-    <div class="card-header bg-dark text-white">
-        {{ post.pub_date }}
-    </div>
-    <div class="card-body">
-        <h5 class="card-title">{{ post.title }}</h5>
-        <p class="card-text">{{ post.body|truncatewords:15 }}</p>
-        <a href="{{ post.get_absolute_url }}" class="btn btn-dark">Read</a>
-    </div>
-    <div class="card-footer text-white bg-dark">
-        Tags:
-        {% for tag in post.tags.all %}
-            <a href="{{ tag.get_absolute_url }}">{{ tag.title }}</a>
-        {% endfor %}
+{% if post.published %}
+    <div class="card mb-4">
+        <div class="card-header bg-dark text-white">
+            {{ post.pub_date }}
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">{{ post.title }}</h5>
+            <p class="card-text">{{ post.body|truncatewords:15 }}</p>
+            <a href="{{ post.get_absolute_url }}" class="btn btn-dark">Read</a>
+        </div>
+        <div class="card-footer text-white bg-dark">
+            Tags:
+            {% for tag in post.tags.all %}
+                {% if tag.published %}
+                    <a href="{{ tag.get_absolute_url }}">{{ tag.title }}</a>
+                {% endif %}
+            {% endfor %}
 
+        </div>
     </div>
-</div>
+{% endif %}

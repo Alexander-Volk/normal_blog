@@ -4,10 +4,17 @@ from django.shortcuts import render, get_object_or_404, redirect, reverse
 class ObjectDetailMixin:
     model = None
     template = None
+    model_form = None
 
     def get(self, request, slug):
-        obj = get_object_or_404(self.model, slug__iexact=slug)
-        context = {self.model.__name__.lower(): obj, 'admin_object': obj, 'detail': True}
+        obj = get_object_or_404(self.model, slug__iexact=slug, published=True)
+        form = self.model_form
+        context = {
+            self.model.__name__.lower(): obj,
+            'admin_object': obj,
+            'detail': True,
+            'form': form
+        }
         return render(request, self.template, context)
 
 

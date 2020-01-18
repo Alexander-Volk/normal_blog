@@ -10,13 +10,32 @@
     <h1 class="mt-5">
         {{ post.title }}
     </h1>
-    <p>
-        {{ post.body }}
-    </p>
-    <b>Комментарии:</b><br>
-    {% for comment in post.comment_set.all %}
+    <div class="box">
+        <p>
+            {{ post.body }}
+        </p>
+    </div>
+
+    <h4>Комментарии:</h4>
+    {% if user.is_authenticated %}
+        <form action="" method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group">
+                    {{ field }}
+                </div>
+            {% endfor %}
+
+            <button class="btn btn-dark" type="submit" name="button">Отправить</button>
+
+        </form>
+    {% else %}
+        <p>Что бы оставить комментарий войдите на сайт</p>
+    {% endif %}
+    <hr>
+    {% for comment in post.comments.all %}
         Пользователь - {{ comment.author }}<br>
-        {{ comment.text }}<br>
+        {{ comment.body }} <br>
         Добавлен - {{ comment.create_date }}<br><br>
     {% endfor %}
 
