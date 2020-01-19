@@ -97,5 +97,6 @@ class Comment(models.Model):
         return self.body
 
     class Meta:
+        ordering = ['-create_date']
         verbose_name = 'Комментарий'
         verbose_name_plural = 'Комментарии'
