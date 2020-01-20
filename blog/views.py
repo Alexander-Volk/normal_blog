@@ -90,6 +90,7 @@ class TagDetail(ObjectDetailMixin, View):
     template = 'blog/tag_detail.html'
 
 
+
 class TagCreate(LoginRequiredMixin, ObjectCreateMixin, View):
     model_form = TagForm
     template = 'blog/tag_create.html'

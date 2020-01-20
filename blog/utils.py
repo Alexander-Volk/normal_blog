@@ -8,13 +8,14 @@ class ObjectDetailMixin:
 
     def get(self, request, slug):
         obj = get_object_or_404(self.model, slug__iexact=slug, published=True)
-        form = self.model_form()
         context = {
             self.model.__name__.lower(): obj,
             'admin_object': obj,
             'detail': True,
-            'form': form
         }
+        if self.model_form:
+            form = self.model_form()
+            context['form'] = form
         return render(request, self.template, context)
 
 
