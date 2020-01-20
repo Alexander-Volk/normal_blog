@@ -4,7 +4,7 @@ from django.urls import get_script_prefix
 from django.utils.encoding import iri_to_uri
 
 
-class Pages(models.Model):
+class Page(models.Model):
     title = models.CharField('Заголовок', max_length=50)
     sub_title = models.CharField('Подзаголовок', max_length=25, blank=True, null=True)
     text = models.TextField('Текст', blank=True, null=True)
@@ -16,12 +16,12 @@ class Pages(models.Model):
     )
     published_date = models.DateTimeField('Дата публикации', blank=True, null=True)
     published = models.BooleanField('Опубликовать?', default=True)
-    template = models.CharField('Шаблон', max_length=100, default='pages/home.html')
+    template = models.CharField('Шаблон', max_length=50, default='pages/home.html')
     registration_required = models.BooleanField(
         'Требуется регистрация',
         help_text='Если флажок установлен, только зарегистрированные пользователи могут '
                   'просматривать страницу.',
-        default=False,
+        default=False
     )
     slug = models.SlugField('url', max_length=50, unique=True)
 
@@ -43,4 +43,4 @@ class Pages(models.Model):
     class Meta:
         verbose_name = 'Страница'
         verbose_name_plural = 'Страницы'
-        unique_together = ('slug',)
+        # unique_together = ['slug']
