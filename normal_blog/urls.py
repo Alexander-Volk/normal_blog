@@ -22,6 +22,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('', redirect_blog),
     path('blog/', include('blog.urls')),
+    path('page/', include('pages.urls')),
     path('admin/', admin.site.urls),
 ]
 

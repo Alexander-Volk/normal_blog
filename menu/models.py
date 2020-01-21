@@ -49,8 +49,7 @@ class MenuItem(MPTTModel):
     def get_anchor(self):
         if self.anchor:
             return f'{Site.objects.get_current().domain}/#{self.anchor}'
-        else:
-            return False
+        return False
 
     def __str__(self):
         return self.name

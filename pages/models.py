@@ -23,7 +23,7 @@ class Page(models.Model):
                   'просматривать страницу.',
         default=False
     )
-    slug = models.SlugField('url', max_length=50, unique=True)
+    slug = models.CharField('url', max_length=50, unique=True)
 
     def __str__(self):
         return self.title

@@ -1,11 +1,14 @@
 {% extends 'blog/base_blog.html' %}
-
+{% load menu_tags %}
 {% block title %}
     Posts list
 {% endblock %}
 
 
 {% block content %}
+    {% menu_item menu='Main' %}
+    <hr>
+
     <h1 class="mb-5">Posts:</h1>
     {% for post in page_object.object_list %}
         {% include 'blog/includes/post_card_template.html' %}
