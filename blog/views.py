@@ -4,7 +4,7 @@ from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.views.generic import View
 
-from blog.models import Post, Tag, Comment
+from blog.models import Post, Tag
 from .forms import TagForm, PostForm, CommentForm
 from .utils import ObjectDetailMixin, ObjectCreateMixin, ObjectUpdateMixin, ObjectDeleteMixin
 
@@ -88,7 +88,6 @@ class PostDelete(LoginRequiredMixin, ObjectDeleteMixin, View):
 class TagDetail(ObjectDetailMixin, View):
     model = Tag
     template = 'blog/tag_detail.html'
-
 
 
 class TagCreate(LoginRequiredMixin, ObjectCreateMixin, View):

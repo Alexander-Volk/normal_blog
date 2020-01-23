@@ -43,4 +43,3 @@ class Page(models.Model):
     class Meta:
         verbose_name = 'Страница'
         verbose_name_plural = 'Страницы'
-        # unique_together = ['slug']
