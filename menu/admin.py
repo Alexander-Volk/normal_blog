@@ -17,4 +17,4 @@ class MenuItemAdmin(MPTTModelAdmin):
     search_fields = ('name', 'parent__name', 'menu__name')
     save_as = True
     list_editable = ('published',)
-    mptt_level_indent = 5
+    mptt_level_indent = 20

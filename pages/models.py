@@ -31,7 +31,7 @@ class Page(models.Model):
     def save(self, *args, **kwargs):
         if self.slug is None:
             self.slug = '/'
-        if not f'{self.slug}'.startswith('/'):
+        if not self.slug.startswith('/'):
             self.slug = '/' + self.slug
         if not self.slug.endswith('/'):
             self.slug += '/'
