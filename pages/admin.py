@@ -25,7 +25,7 @@ class ActionPublish(admin.ModelAdmin):
         self.message_user(request, f'{message_bit} successfully marked as published')
 
     publish.short_description = 'Опубликовать'
-    publish.allowed_permission = ('change',)
+    publish.allowed_permissions = ('change',)
 
 
 class PageAdminForm(forms.ModelForm):
