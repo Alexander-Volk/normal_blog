@@ -1,9 +1,13 @@
+body {
+    min-height: 100%;
+}
+
 .admin-panel {
     border: 1px solid #343a40;
     border-radius: 2px;
     position: fixed;
     right: 50px;
-    bottom: 30px;
+    bottom: 50px;
     opacity: 0.3;
     padding: 15px;
 }
@@ -18,10 +22,41 @@
 }
 
 .form-control:focus {
-    box-shadow: 0 0 0 0.2rem rgba(10,10,10, .25);
+    box-shadow: 0 0 0 0.2rem rgba(10, 10, 10, .25);
     border-color: #343a40;
 }
 
 a.edit, a.delete {
     display: none;
+}
+
+div.container {
+    min-height: 578px;
+}
+
+footer {
+    position: relative;
+
+    width: 100%;
+}
+
+footer .pt-4, .py-4 {
+    padding-top: 0.5rem !important;
+}
+
+footer .pt-4, .py-4 {
+    padding-bottom: 0.5rem !important;
+}
+
+/*menu*/
+.dropdown-item a {
+    color: black;
+}
+
+.dropdown-item.active, .dropdown-item:active {
+    background-color: #DDDDDD;
+}
+
+.dropdown-menu {
+    left: -72px;
 }

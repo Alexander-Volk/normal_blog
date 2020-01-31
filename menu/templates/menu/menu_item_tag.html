@@ -1,16 +1,16 @@
-{% load mptt_tags %}
-<ul>
+{% load mptt_tags static %}
+<ul class="menu" style="padding-inline-start: 0;">
     {% recursetree items %}
-        <li>
+        <li class="dropdown-item">
             {% if node.url %}
-                <a class="" href="{{ node.url }}">{{ node.title }}</a>
+                <a href="{{ node.url }}">{{ node.title }}</a>
             {% elif node.anchor %}
-                <a class="" href="{{ node.get_anchor }}">{{ node.title }}</a>
+                <a href="{{ node.get_anchor }}">{{ node.title }}</a>
             {% else %}
                 <a href="{{ node.content_object.get_absolute_url }}">{{ node.title }}</a>
             {% endif %}
             {% if not node.is_leaf_node %}
-                <ul class="children">
+                <ul class="children dropdown-item">
                     {{ children }}
                 </ul>
             {% endif %}

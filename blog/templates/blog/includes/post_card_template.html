@@ -2,10 +2,13 @@
     <div class="card mb-4">
         <div class="card-header bg-dark text-white">
             {{ post.pub_date }}
+            {% if post.author %}
+                ~ Author: {{ post.author }}
+            {% endif %}
         </div>
         <div class="card-body">
             <h5 class="card-title">{{ post.title }}</h5>
-            <p class="card-text">{{ post.body|truncatewords:15 }}</p>
+            <p class="card-text">{{ post.body|truncatewords:10 }}</p>
             <a href="{{ post.get_absolute_url }}" class="btn btn-dark">Read</a>
         </div>
         <div class="card-footer text-white bg-dark">
@@ -15,7 +18,6 @@
                     <a href="{{ tag.get_absolute_url }}">{{ tag.title }}</a>
                 {% endif %}
             {% endfor %}
-
         </div>
     </div>
 {% endif %}

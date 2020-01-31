@@ -14,10 +14,11 @@ def get_menu_item(menu):
 
 
 @register.inclusion_tag('base/tags/base_tag.html', takes_context=True)
-def menu_item(context, menu, template='menu/menu_item_tag.html'):
+def menu_item(context, menu, template='menu/menu_item_tag.html', static='css/style.css'):
     return {
         'template': template,
-        'items': get_menu_item(menu)
+        'items': get_menu_item(menu),
+        'static': static
     }
 
 
