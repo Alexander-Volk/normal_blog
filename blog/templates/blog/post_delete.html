@@ -1,7 +1,7 @@
 {% extends 'blog/base_blog.html' %}
 
 {% block title %}
-    Delete Tag "{{ post.title|title }}" - {{ block.super }}
+    Удалить пост "{{ post.title|title }}" - {{ block.super }}
 {% endblock %}
 
 
@@ -10,9 +10,9 @@
     <form action="{{ post.get_delete_url }}" method="post">
         {% csrf_token %}
 
-        <h3>Are you sure you want to delete <b>"{{ post.title|title }}"</b>post?</h3>
-        <a href="{{post.get_absolute_url}}">Cancel</a>
-        <button type="submit" name="button" class="btn btn-danger">Delete</button>
+        <h3>Вы уверены, что хотите удалить <b>"{{ post.title|title }}"</b> пост?</h3>
+        <a href="{{post.get_absolute_url}}">Отменить</a>
+        <button type="submit" name="button" class="btn btn-danger">Удалить</button>
     </form>
     
 {% endblock %}
